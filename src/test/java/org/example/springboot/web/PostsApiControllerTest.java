@@ -22,12 +22,16 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
+// 임의의 포트로 실행
+// @WebMvcTest 에서 사용할 수 없는 JPA 기능을 테스트할 것이므로 실제로 서버를 실행시켜야 함
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PostsApiControllerTest {
+    // 현재 실행된 서버의 포트 번호 반환
     @LocalServerPort
     private int port;
 
     @Autowired
+    // REST API 호출을 위한 클래스
     private TestRestTemplate restTemplate;
 
     @Autowired
@@ -52,6 +56,7 @@ public class PostsApiControllerTest {
         String url = "http://localhost:" + port + "/api/v1/posts";
 
         //when
+        // POST 방식 요청, 결과를 Entity 로 반환
         ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, requestDto, Long.class);
 
         //then
@@ -83,9 +88,11 @@ public class PostsApiControllerTest {
 
         String url = "http://localhost:" + port + "/api/v1/posts/" + updateId;
 
+        // HTTP 요청, 응답에 해당하는 Header 와 Body 를 포함하는 클래스
         HttpEntity<PostsUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
 
         //when
+        // exchange() : HTTP 메서드를 실행하고, 그 결과를 ResponseEntity 객체에 반환
         ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Long.class);
 
         //then

@@ -7,6 +7,7 @@ import org.example.springboot.domain.posts.Posts;
 
 @Getter
 @NoArgsConstructor
+// DTO : 레이어 간 데이터 전달을 위한 객체
 public class PostsSaveRequestDto {
     private String title;
     private String content;

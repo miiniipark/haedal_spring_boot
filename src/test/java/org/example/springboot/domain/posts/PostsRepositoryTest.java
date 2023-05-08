@@ -13,11 +13,13 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
+// 스프링이 제공하는 여러가지 기능들을 이용하여 테스트 수행
 @SpringBootTest
 public class PostsRepositoryTest {
     @Autowired
     PostsRepository postsRepository;
 
+    // 테스트 종료 후 실행할 메서드
     @After
     public void cleanup() {
         postsRepository.deleteAll();
@@ -29,6 +31,8 @@ public class PostsRepositoryTest {
         String title = "테스트 게시글";
         String content = "테스트 본문";
 
+        // 현재 postsRepository 에는 직접 구현한 메서드가 없으나,
+        // 스프링이 기본적으로 DB 상호작용을 위한 save(), findAll() 등의 메서드를 제공함
         postsRepository.save(Posts.builder()
                 .title(title)
                 .content(content)

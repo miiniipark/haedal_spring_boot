@@ -14,10 +14,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+// service 레이어. 트랜잭션, 도메인 간 순서 보장
 @Service
 public class PostsService {
     private final PostsRepository postsRepository;
-
+    // @Transactional, 메서드를 트랜잭션을 적용하여 실행
     @Transactional
     public Long save(PostsSaveRequestDto requestDto) {
         return postsRepository.save(requestDto.toEntity()).getId();
